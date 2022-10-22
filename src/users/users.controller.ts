@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/users.dto';
 import { UsersService } from './users.service';
 
@@ -19,6 +27,10 @@ export class UsersController {
 
   @Get(':id')
   getUser(@Param('id') id: string) {
-    return this.usersService.getUser(id);
+    const user = this.usersService.getUser(id);
+    if (!user) {
+      throw new HttpException('User with this id does not exist', 404);
+    }
+    return user;
   }
 }
