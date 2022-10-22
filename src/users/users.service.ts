@@ -6,10 +6,16 @@ export class UsersService {
   private users: User[] = [];
   private readonly logger = new Logger('UsersService');
 
-  public createUser(username: string) {
-    const newUser: User = new User(username);
-    this.users.push(newUser);
-    this.logger.log('User was created');
-    return newUser;
+  public createUser(username: string): User {
+    const user: User = new User(username);
+    this.users.push(user);
+
+    this.logger.log(`User ${user.id} was created`);
+
+    return user;
+  }
+
+  public getAllUsers(): User[] {
+    return this.users;
   }
 }
