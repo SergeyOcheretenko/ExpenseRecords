@@ -18,4 +18,8 @@ export class UsersService {
   public getAllUsers(): User[] {
     return this.users;
   }
+
+  public getUser(id: string) {
+    return this.users.find((user) => user.id === id);
+  }
 }
