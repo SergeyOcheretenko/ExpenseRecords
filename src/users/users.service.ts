@@ -3,7 +3,12 @@ import { User } from './entity/user.entity';
 
 @Injectable()
 export class UsersService {
-  private users: User[] = [];
+  private users: User[] = [
+    new User('Serhii'),
+    new User('Julia'),
+    new User('Alex'),
+  ];
+
   private readonly logger = new Logger('UsersService');
 
   public createUser(username: string): User {

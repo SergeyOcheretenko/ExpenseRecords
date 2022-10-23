@@ -3,7 +3,11 @@ import { Category } from './entity/category.entity';
 
 @Injectable()
 export class CategoriesService {
-  private categories: Category[] = [];
+  private categories: Category[] = [
+    new Category('Food'),
+    new Category('Fun'),
+    new Category('Courses'),
+  ];
   private readonly logger = new Logger('CategotiesService');
 
   public createCategory(categoryName: string) {

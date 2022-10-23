@@ -12,7 +12,19 @@ export class RecordsService {
   constructor(
     private readonly usersService: UsersService,
     private readonly categoriesService: CategoriesService,
-  ) {}
+  ) {
+    // Initialization of initial values
+    const userIds = this.usersService.getAllUsers().map((user) => user.id);
+    const categoryIds = this.categoriesService
+      .getAllCategories()
+      .map((category) => category.id);
+
+    this.records.push(new Record(userIds[0], categoryIds[0], 1000));
+    this.records.push(new Record(userIds[0], categoryIds[1], 1000));
+    this.records.push(new Record(userIds[1], categoryIds[0], 2000));
+    this.records.push(new Record(userIds[1], categoryIds[2], 2000));
+    this.records.push(new Record(userIds[2], categoryIds[2], 3000));
+  }
 
   public createRecord({ userId, categoryId, expense }: CreateRecordDto) {
     const record = new Record(userId, categoryId, expense);
