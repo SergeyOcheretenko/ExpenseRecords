@@ -5,6 +5,7 @@ import {
   HttpCode,
   HttpException,
   Param,
+  ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
 import { CreateUserDto } from './dto/users.dto';
@@ -26,7 +27,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  getUser(@Param('id') id: string) {
+  getUser(@Param('id', new ParseUUIDPipe()) id: string) {
     const user = this.usersService.getUser(id);
     if (!user) {
       throw new HttpException('User with this id does not exist', 404);
