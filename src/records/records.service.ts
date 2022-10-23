@@ -15,4 +15,8 @@ export class RecordsService {
 
     return record;
   }
+
+  public getAllRecords() {
+    return this.records;
+  }
 }
