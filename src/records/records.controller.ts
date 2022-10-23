@@ -1,4 +1,12 @@
-import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpException,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { CreateRecordDto } from './dto/records.dto';
 import { RecordsService } from './records.service';
 
@@ -17,14 +25,21 @@ export class RecordsController {
     @Query('userId') userId?: string,
     @Query('categoryId') categoryId?: string,
   ) {
-    if (userId && categoryId) {
-      return this.recordsService.getRecordByUserAndCategory(userId, categoryId);
-    }
+    try {
+      if (userId && categoryId) {
+        return this.recordsService.getRecordByUserAndCategory(
+          userId,
+          categoryId,
+        );
+      }
 
-    if (userId) {
-      return this.recordsService.getRecordsByUser(userId);
-    }
+      if (userId) {
+        return this.recordsService.getRecordsByUser(userId);
+      }
 
-    return this.recordsService.getAllRecords();
+      return this.recordsService.getAllRecords();
+    } catch (err) {
+      throw new HttpException(err.message, 404);
+    }
   }
 }
