@@ -19,4 +19,14 @@ export class RecordsService {
   public getAllRecords() {
     return this.records;
   }
+
+  public getRecordsByUser(userId: string) {
+    return this.records.filter((record) => record.userId === userId);
+  }
+
+  public getRecordByUserAndCategory(userId: string, categoryId: string) {
+    return this.records.filter(
+      (record) => record.userId === userId && record.categoryId === categoryId,
+    );
+  }
 }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import { CreateRecordDto } from './dto/records.dto';
 import { RecordsService } from './records.service';
 
@@ -13,7 +13,18 @@ export class RecordsController {
   }
 
   @Get()
-  getAllRecords() {
+  getRecords(
+    @Query('userId') userId?: string,
+    @Query('categoryId') categoryId?: string,
+  ) {
+    if (userId && categoryId) {
+      return this.recordsService.getRecordByUserAndCategory(userId, categoryId);
+    }
+
+    if (userId) {
+      return this.recordsService.getRecordsByUser(userId);
+    }
+
     return this.recordsService.getAllRecords();
   }
 }
